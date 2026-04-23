@@ -20,16 +20,16 @@ write:
     ret
 
 start:
-    mov edi, 1
+    mov edi, 1          ; stdout
     mov rsi, msg1
     mov edx, msg1_len
     call write
 
-    mov edi, 1          ; stdout, not 2 (stderr)
+    mov edi, 1          ; stdout
     mov rsi, msg2
     mov edx, msg2_len
     call write
 
-    mov eax, 60
+    mov eax, 60         ; syscall exit
     xor edi, edi
     syscall
