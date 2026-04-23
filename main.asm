@@ -9,8 +9,10 @@ segment readable
     msg2_end:
 
 segment readable executable
-    msg2_len    equ msg1_end - (msg1 - 1)
-    msg1_len    equ msg2_end - (msg2 - 1)
+    msg1_len    equ msg1_end - msg1
+    msg2_len    equ msg2_end - msg2
+    ;msg2_len    equ 14
+    ;msg1_len    equ 13
 
 write:
     mov eax, 1
