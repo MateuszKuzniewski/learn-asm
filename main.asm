@@ -3,8 +3,7 @@ format ELF64
 section '.text' executable
 public _start
 
-extrn printf
-extrn exit
+extrn _exit
 extrn InitWindow
 extrn WindowShouldClose
 extrn CloseWindow
@@ -32,7 +31,7 @@ again:
 over:
     call CloseWindow
     mov rdi, 0
-    call exit
+    call _exit
 
 section '.data' writable
 msg db "Hello from fasm", 10, 0
