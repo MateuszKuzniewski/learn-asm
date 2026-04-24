@@ -1,35 +1,38 @@
-format ELF64 executable 3
-entry start
+format ELF64
 
-segment readable
-    line        equ 10
-    msg1        db 'Hello, World!', line
-    msg1_end:
-    msg2        db 'Hello again!', line
-    msg2_end:
+section '.text' executable
+public _start
 
-segment readable executable
-    msg1_len    equ msg1_end - msg1
-    msg2_len    equ msg2_end - msg2
-    ;msg2_len    equ 14
-    ;msg1_len    equ 13
+extrn printf
+extrn exit
+extrn InitWindow
+extrn WindowShouldClose
+extrn CloseWindow
+extrn BeginDrawing 
+extrn EndDrawing 
+extrn ClearBackground
 
-write:
-    mov eax, 1
-    syscall
-    ret
+_start:
+    mov rdi, 800
+    mov rsi, 600
+    mov rdx, msg
+    call InitWindow
+    
+again:
+    call WindowShouldClose
+    test rax, rax
+    jnz over
+    
+    call BeginDrawing
+    mov rdi, 0xFF0000FF
+    call ClearBackground
+    call EndDrawing
+    jmp again
 
-start:
-    mov edi, 1          ; stdout
-    mov rsi, msg1
-    mov edx, msg1_len
-    call write
+over:
+    call CloseWindow
+    mov rdi, 0
+    call exit
 
-    mov edi, 1          ; stdout
-    mov rsi, msg2
-    mov edx, msg2_len
-    call write
-
-    mov eax, 60         ; syscall exit
-    xor edi, edi
-    syscall
+section '.data' writable
+msg db "Hello from fasm", 10, 0
