@@ -1,2 +1,5 @@
 .asm-lsp.toml
+build.sh
 main
+main.bin
+main.o
