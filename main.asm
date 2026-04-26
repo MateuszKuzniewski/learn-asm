@@ -16,15 +16,9 @@ extrn WindowShouldClose
 extrn CloseWindow
 extrn BeginDrawing 
 extrn EndDrawing 
-
-; InitWindow(int width, int height, const char *title)
-extrn InitWindow
-
-; ClearBackground(Color color)
-extrn ClearBackground
-
-; DrawRectangle(int posX, int posY, int width, int height, Color color);
-extrn DrawRectangle
+extrn InitWindow        ; InitWindow(int width, int height, const char *title)
+extrn ClearBackground   ; ClearBackground(Color color)
+extrn DrawRectangle     ; DrawRectangle(int posX, int posY, int width, int height, Color color);
 
 _start:
     mov rdi, _window_width
@@ -69,7 +63,6 @@ _start:
 
 .over:
     call CloseWindow
-    mov rdi, 0
     call _exit
 
 section '.data' writable
