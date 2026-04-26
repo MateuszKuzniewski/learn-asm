@@ -34,30 +34,42 @@ _start:
     call BeginDrawing
     mov rdi, _background_color
     call ClearBackground
-    
     xor r12, r12 ; i = 0
-.rect_loop:
+
+.rect_loop_row:
     cmp r12, 4 
+    jge .rect_done
+    xor r13, r13 ; y = 0;
+
+.rect_loop_col:
+    cmp r13, 4
     jge .rect_loop_end ; if i >= 4 exit loop
-
-    mov rsi, _window_height
-    sub rsi, _button_size ; y = _window_height - _button_size 
-
-    mov rax, r12
-    mov rcx, _button_size + _button_gap 
-    imul rax, rcx ; i * (_button_size + gap)
+    
+    ; x
+    mov rax, r13
+    imul rax, _button_size + _button_gap
     mov rdi, rax
+
+    ; y
+    mov rax, r12
+    inc rax ; row + 1
+    imul rax, _button_size + _button_gap
+    mov rsi, _window_height
+    sub rsi, rax
 
     mov rdx, _button_size
     mov rcx, _button_size
     mov r8, _button_color
-
     call DrawRectangle
-
-    inc r12
-    jmp .rect_loop
+    
+    inc r13
+    jmp .rect_loop_col
 
 .rect_loop_end:
+    inc r12
+    jmp .rect_loop_row
+
+.rect_done:
     call EndDrawing
     jmp .draw_window
 
