@@ -38,12 +38,12 @@ _start:
 
 .rect_loop_row:
     cmp r12, 4 
-    jge .rect_done
+    jge .rect_loop_row_exit
     xor r13, r13 ; y = 0;
 
 .rect_loop_col:
     cmp r13, 4
-    jge .rect_loop_end ; if i >= 4 exit loop
+    jge .rect_loop_col_exit ; if i >= 4 exit loop
     
     ; x
     mov rax, r13
@@ -65,11 +65,11 @@ _start:
     inc r13
     jmp .rect_loop_col
 
-.rect_loop_end:
+.rect_loop_col_exit:
     inc r12
     jmp .rect_loop_row
 
-.rect_done:
+.rect_loop_row_exit:
     call EndDrawing
     jmp .draw_window
 
