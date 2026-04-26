@@ -34,16 +34,16 @@ _start:
     call BeginDrawing
     mov rdi, _background_color
     call ClearBackground
-    xor r12, r12 ; i = 0
+    xor r12, r12
 
 .rect_loop_row:
     cmp r12, 4 
     jge .rect_loop_row_exit
-    xor r13, r13 ; y = 0;
+    xor r13, r13 
 
 .rect_loop_col:
     cmp r13, 4
-    jge .rect_loop_col_exit ; if i >= 4 exit loop
+    jge .rect_loop_col_exit
     
     ; x
     mov rax, r13
