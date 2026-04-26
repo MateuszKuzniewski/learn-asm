@@ -1,12 +1,13 @@
 format ELF64
 
-section '.text'
+section '.rodata'
 _window_height equ 600
 _window_width equ 400
 _background_color equ 0x18181818
 _button_color equ 0xFFFFFFFF
 _button_size equ 90
 _button_gap equ 15
+_title db "Fasm Calculator", 10, 0
 
 section '.text' executable
 public _start
@@ -23,7 +24,7 @@ extrn DrawRectangle     ; DrawRectangle(int posX, int posY, int width, int heigh
 _start:
     mov rdi, _window_width
     mov rsi, _window_height
-    mov rdx, msg
+    mov rdx, _title 
     call InitWindow
     
 .draw_window:
@@ -76,7 +77,4 @@ _start:
 .over:
     call CloseWindow
     call _exit
-
-section '.data' writable
-msg db "Fasm Calculator", 10, 0
 
